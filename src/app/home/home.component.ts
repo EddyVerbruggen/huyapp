@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import * as firebase from 'nativescript-plugin-firebase';
 
 @Component({
     selector: "Home",
@@ -13,5 +14,25 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         // Init your component properties here.
+    }
+
+    login() {
+        console.log('huy: logging in')
+        firebase.login({
+            type: firebase.LoginType.PHONE,
+            phoneOptions: {
+                phoneNumber: '+19495551234',
+                verificationPrompt: "The received verification code" // default "Verification code"
+            }
+        }).then(
+            function (result) {
+                console.log('huy: success')
+                JSON.stringify(result);
+            },
+            function (errorMessage) {
+                console.log('huy: failed')
+                console.log(errorMessage);
+            }
+        );
     }
 }
